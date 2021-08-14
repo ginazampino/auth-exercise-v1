@@ -7,6 +7,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const app = express();
+const { Users, Profiles } = require('./sequelize');
 
 app.use(session({
     secret: process.env.SESSION_SECRET
