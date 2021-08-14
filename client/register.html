@@ -5,6 +5,7 @@
     </head>
     <body>
         <h1>register.html</h1>
+        <h3 id="emailContainer"></h3>
         <form>
             <div>
                 <label for="userName">Username:</label>
@@ -20,7 +21,16 @@
         </form>
     </body>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+        let email = null;
+        
+        axios.get('/email').then((res) => {
+            email = res.data;
+            let container = document.getElementById('emailContainer');
+            container.innerText = email;
+        });
+
         function test() {
             let userName = document.getElementById('userName').value;
             let favoriteColor = document.getElementById('favoriteColor').value;
