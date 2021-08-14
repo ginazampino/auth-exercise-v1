@@ -19,11 +19,11 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        // axios.get('/email').then((res) => {
-        //     let email = res.data;
-        //     let container = document.getElementById('emailContainer');
-        //     container.innerText = email;
-        // });
+        axios.get('/email').then((res) => {
+            let email = res.data;
+            let container = document.getElementById('emailContainer');
+            container.innerText = email;
+        });
 
         function debug() {
             let name = document.getElementById('userName').value;
