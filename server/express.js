@@ -22,7 +22,7 @@ function authenticate(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        res.redirect('/');
+        res.redirect('/fail');
     };
 };
 
@@ -39,11 +39,16 @@ app.get('/google/auth', passport.authenticate('google', {
 }));
 
 app.get('/google/callback', passport.authenticate('google', {
-    successRedirect: '/pass',
+    successRedirect: '/',
     failureRedirect: '/fail'
 }));
 
-app.get('/email', (req, res) => {
+app.get('/google/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
+app.get('/email', authenticate, (req, res) => {
     res.json(req.user.emails[0].value)
 });
 
