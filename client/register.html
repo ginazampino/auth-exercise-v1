@@ -19,22 +19,25 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        axios.get('/email').then((res) => {
-            let email = res.data;
-            let container = document.getElementById('emailContainer');
-            container.innerText = email;
+
+        let email = axios.get('/email').then((res) => {
+            console.log('Retrieved from /email: ' + email);
+            return email = res.data;
+        }).then((res) => {
+            document.getElementById('emailContainer').innerText = email
         });
 
         function debug() {
             let name = document.getElementById('userName').value;
 
             axios.post('/debug', {
+                email: email,
                 username: name
             }).then((res) => {
                 console.log('Success')
             }).catch((err) => {
                 console.log(err);
             });
-        }
+        };
     </script>
 </html>

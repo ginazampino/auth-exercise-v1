@@ -62,8 +62,6 @@ app.get('/register', authenticate, (req, res) => {
 app.post('/debug', authenticate, (req, res) => {
     console.log(req.body);
     res.redirect('/pass');
-    // console.log(req.body.username);
-    // console.log(req.body.favoriteColor);
 });
 
 app.listen(process.env.PORT, () => {
