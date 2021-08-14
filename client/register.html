@@ -6,14 +6,10 @@
     <body>
         <h1>register.html</h1>
         <h3 id="emailContainer"></h3>
-        <form action="/debug" method="post">
+        <form>
             <div>
                 <label for="userName">Username:</label>
                 <input id="userName" type="text" />
-            </div>
-            <div>
-                <label for="favoriteColor">Favorite color:</label>
-                <input id="favoriteColor" type="text" />
             </div>
             <div>
                 <input type="submit" value="Register" onclick="debug()"/>
@@ -23,24 +19,21 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        axios.get('/email').then((res) => {
-            let email = res.data;
-            let container = document.getElementById('emailContainer');
-            container.innerText = email;
-        });
+        // axios.get('/email').then((res) => {
+        //     let email = res.data;
+        //     let container = document.getElementById('emailContainer');
+        //     container.innerText = email;
+        // });
 
         function debug() {
             let name = document.getElementById('userName').value;
-            let color = document.getElementById('favoriteColor').value
-            
-            console.log(name);
-            console.log(color);
 
             axios.post('/debug', {
-                username: name,
-                favoriteColor: color,
+                username: name
             }).then((res) => {
-                console.log(res);
+                console.log('Success')
+            }).catch((err) => {
+                console.log(err);
             });
         }
     </script>
