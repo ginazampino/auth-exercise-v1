@@ -49,7 +49,7 @@ app.get('/email', (req, res) => {
     res.json(req.user.emails[0].value)
 });
 
-app.get('/pass', (req, res) => {
+app.get('/pass', authenticate, (req, res) => {
     res.send('Passed');
 });
 
@@ -57,6 +57,9 @@ app.get('/fail', (req, res) => {
     res.send('Failed');
 });
 
+app.get('/register', authenticate, (req,res) => {
+    res.sendFile(path.resolve(__dirname, '../client/register.html'))
+});
 
 app.listen(process.env.PORT, () => {
     console.log(

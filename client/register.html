@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>register</title>
+    </head>
+    <body>
+        <h1>register.html</h1>
+        <form>
+            <div>
+                <label for="userName">Username:</label>
+                <input id="userName" type="text" />
+            </div>
+            <div>
+                <label for="favoriteColor">Favorite color:</label>
+                <input id="favoriteColor" type="text" />
+            </div>
+            <div>
+                <input type="submit" value="Register" onclick="test()" />
+            </div>
+        </form>
+    </body>
+
+    <script>
+        function test() {
+            let userName = document.getElementById('userName').value;
+            let favoriteColor = document.getElementById('favoriteColor').value;
+            alert(userName);
+            alert(favoriteColor);
+        };
+    </script>
+</html>
