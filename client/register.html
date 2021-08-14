@@ -6,7 +6,7 @@
     <body>
         <h1>register.html</h1>
         <h3 id="emailContainer"></h3>
-        <form>
+        <form action="/debug" method="post">
             <div>
                 <label for="userName">Username:</label>
                 <input id="userName" type="text" />
@@ -16,7 +16,7 @@
                 <input id="favoriteColor" type="text" />
             </div>
             <div>
-                <input type="submit" value="Register" onclick="test()" />
+                <input type="submit" value="Register" onclick="debug()"/>
             </div>
         </form>
     </body>
@@ -29,11 +29,19 @@
             container.innerText = email;
         });
 
-        function test() {
-            let userName = document.getElementById('userName').value;
-            let favoriteColor = document.getElementById('favoriteColor').value;
-            alert(userName);
-            alert(favoriteColor);
-        };
+        function debug() {
+            let name = document.getElementById('userName').value;
+            let color = document.getElementById('favoriteColor').value
+            
+            console.log(name);
+            console.log(color);
+
+            axios.post('/debug', {
+                username: name,
+                favoriteColor: color,
+            }).then((res) => {
+                console.log(res);
+            });
+        }
     </script>
 </html>

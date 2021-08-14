@@ -4,10 +4,12 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const router = express.Router();
-const bodyParser = require('body-parser');
 const passport = require('passport');
 const app = express();
 const { Users, Profiles } = require('./sequelize');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     secret: process.env.SESSION_SECRET
@@ -16,16 +18,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-
 function authenticate(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        res.redirect('/login');
+        res.redirect('/');
     };
 };
 
@@ -58,8 +55,16 @@ app.get('/fail', (req, res) => {
     res.send('Failed');
 });
 
-app.get('/register', authenticate, (req,res) => {
+app.get('/register', authenticate, (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/register.html'))
+});
+
+app.post('/debug', authenticate, (req, res) => {
+    console.log(req.body);
+});
+
+app.get('/register/:email', authenticate, (req, res) => {
+    res.send(req.params.email);
 });
 
 app.listen(process.env.PORT, () => {

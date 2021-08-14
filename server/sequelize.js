@@ -4,7 +4,6 @@ const { mariadb } = require('./mariadb');
 const sequelize = new Sequelize(mariadb.database, mariadb.username, mariadb.password, {
     host: mariadb.host,
     dialect: 'mysql',
-    operatorsAliases: false,
     pool: {
         max: 5,
         min: 0,
@@ -57,7 +56,7 @@ Profiles.belongsTo(Users);
 let connectionPromise = sequelize.authenticate().then(() => {
     console.log('Connection to the database has been established.');
     return sequelize;
-}). catch((err) => {
+}).catch((err) => {
     console.log('Unable to establish connection to the database.')
 });
 
