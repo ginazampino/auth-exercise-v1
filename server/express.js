@@ -6,7 +6,7 @@ const session = require('express-session');
 const router = express.Router();
 const passport = require('passport');
 const app = express();
-const { Users, Profiles } = require('./sequelize');
+const { Users } = require('./sequelize');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -62,6 +62,15 @@ app.get('/register', authenticate, (req, res) => {
 app.post('/debug', authenticate, (req, res) => {
     console.log(req.body);
     res.redirect('/pass');
+});
+
+app.post('/create', authenticate, async (req, res) => {
+    await Users.findOrCreate({
+        where: {
+            email: req.body.email,
+            username: req.body.username
+        }
+    }).then(res.redirect('/pass'));
 });
 
 app.listen(process.env.PORT, () => {

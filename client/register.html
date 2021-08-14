@@ -21,16 +21,17 @@
     <script>
 
         let email = axios.get('/email').then((res) => {
-            console.log('Retrieved from /email: ' + email);
             return email = res.data;
         }).then((res) => {
-            document.getElementById('emailContainer').innerText = email
+            document.getElementById('emailContainer').innerText = email;
+            console.log('Retrieved from /email: ' + email);
+        }).catch((err) => {
+            console.log(err);
         });
 
         function debug() {
             let name = document.getElementById('userName').value;
-
-            axios.post('/debug', {
+            axios.post('/create', {
                 email: email,
                 username: name
             }).then((res) => {

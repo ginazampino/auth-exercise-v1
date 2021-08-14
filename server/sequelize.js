@@ -27,31 +27,14 @@ const Users = sequelize.define('users', {
             isEmail: true,
             notEmpty: true
         }
-    }
-});
-
-const Profiles = sequelize.define('profiles', {
-    id: {
-        type: Sequelize.DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
     },
     username: {
         type: Sequelize.DataTypes.STRING,
         validate: {
             notEmpty: true
         }
-    },
-    userId: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-            model: Users,
-            key: Users.id
-        }
     }
 });
-
-Profiles.belongsTo(Users);
 
 let connectionPromise = sequelize.authenticate().then(() => {
     console.log('Connection to the database has been established.');
@@ -63,6 +46,5 @@ let connectionPromise = sequelize.authenticate().then(() => {
 module.exports = {
     connect: connectionPromise,
     sequelize: sequelize,
-    Users,
-    Profiles
+    Users
 };
