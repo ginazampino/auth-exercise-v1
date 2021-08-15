@@ -7,6 +7,7 @@ const router = express.Router();
 const passport = require('passport');
 const app = express();
 const { Users } = require('./sequelize');
+const e = require('express');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -64,9 +65,8 @@ app.get('/register', authenticate, (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/register.html'))
 });
 
-app.post('/debug', authenticate, (req, res) => {
-    console.log(req.body);
-    res.redirect('/pass');
+app.get('/debug', authenticate, (req, res) => {
+    res.json(req.user);
 });
 
 app.post('/create', authenticate, async (req, res) => {
@@ -76,6 +76,15 @@ app.post('/create', authenticate, async (req, res) => {
             username: req.body.username
         }
     }).then(res.redirect('/pass'));
+});
+
+app.get('/user/:username', async (req, res) => {
+    const username = await Users.findOne({ where: { username: req.params.username }});
+    if (username == null) {
+        console.log('User not found.');
+    } else {
+        console.log('Found: ' + username.username);
+    };
 });
 
 app.listen(process.env.PORT, () => {
