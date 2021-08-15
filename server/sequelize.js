@@ -36,6 +36,28 @@ const Users = sequelize.define('users', {
     }
 });
 
+const Pets = sequelize.define('pets', {
+    id: {
+        type: Sequelize.DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    userId: {
+        type: Sequelize.DataTypes.INTEGER 
+    },
+    petName: {
+        type: Sequelize.DataTypes.STRING,
+        validate: {
+            notEmpty: true
+        }
+    }
+});
+
+Users.hasMany(Pets, {
+    foreignKey: 'userId'
+});
+Pets.belongsTo(Users);
+
 let connectionPromise = sequelize.authenticate().then(() => {
     console.log('Connection to the database has been established.');
     return sequelize;
@@ -46,5 +68,6 @@ let connectionPromise = sequelize.authenticate().then(() => {
 module.exports = {
     connect: connectionPromise,
     sequelize: sequelize,
-    Users
+    Users,
+    Pets
 };

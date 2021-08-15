@@ -9,3 +9,11 @@ CREATE TABLE users (
     createdAt                   DATETIME,
     updatedAt                   DATETIME
 )
+
+CREATE TABLE pets (
+    id                          INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    userId                      INT NOT NULL,
+    petName                     VARCHAR(25) NOT NULL,
+    createdAt                   DATETIME,
+    updatedAt                   DATETIME
+)

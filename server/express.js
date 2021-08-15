@@ -6,8 +6,7 @@ const session = require('express-session');
 const router = express.Router();
 const passport = require('passport');
 const app = express();
-const { Users } = require('./sequelize');
-const e = require('express');
+const { Users, Pets } = require('./sequelize');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -63,10 +62,6 @@ app.get('/fail', (req, res) => {
 
 app.get('/register', authenticate, (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/register.html'))
-});
-
-app.get('/debug', authenticate, (req, res) => {
-    res.json(req.user);
 });
 
 app.post('/create', authenticate, async (req, res) => {
